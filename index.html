@@ -20,7 +20,7 @@
       background: linear-gradient(145deg, #ffe9f1 0%, #ffd9e6 100%);
       padding: 1rem;
       margin: 0;
-      transition: background 0.3s ease;
+      transition: background 0.4s ease;
     }
 
     .card {
@@ -101,13 +101,11 @@
       color: #3f1e2b;
       border: 1px solid rgba(255, 255, 255, 0.5);
     }
-
     .btn-yes:hover {
       background: #ff7090;
       transform: scale(1.05);
       box-shadow: 0 12px 28px rgba(220, 70, 110, 0.4);
     }
-
     .btn-yes:active {
       transform: scale(0.95);
     }
@@ -117,18 +115,15 @@
       color: #3f2a30;
       border: 1px solid rgba(255, 255, 255, 0.3);
     }
-
     .btn-no:hover {
       background: #c09aa5;
       transform: scale(1.02);
       box-shadow: 0 8px 20px rgba(140, 80, 90, 0.3);
     }
-
     .btn-no:active {
       transform: scale(0.95);
     }
 
-    /* Ответ "ты ахуела?" — стиль */
     .shock-message {
       font-size: 2.2rem;
       font-weight: 700;
@@ -205,7 +200,6 @@
       z-index: 999;
       overflow: hidden;
     }
-
     .heart-rain span {
       position: absolute;
       display: block;
@@ -215,7 +209,6 @@
       color: #ff4d7a;
       text-shadow: 0 0 12px #ffb0c8;
     }
-
     @keyframes fall {
       0% { transform: translateY(-20vh) rotate(0deg); opacity: 0.8; }
       100% { transform: translateY(110vh) rotate(720deg); opacity: 0.2; }
@@ -228,7 +221,6 @@
     .fade-in {
       animation: fadeIn 0.5s ease forwards;
     }
-
     @keyframes fadeIn {
       0% { opacity: 0; transform: scale(0.9); }
       100% { opacity: 1; transform: scale(1); }
@@ -250,14 +242,12 @@
       backdrop-filter: blur(4px);
       background: rgba(255, 255, 255, 0.2);
     }
-
     .btn-reset:hover {
       background: rgba(255, 200, 215, 0.4);
       border-color: #b06a7a;
       color: #3f1e2b;
     }
 
-    /* адаптив */
     @media (max-width: 480px) {
       .card { padding: 2rem 1.5rem; }
       h1 { font-size: 2rem; }
@@ -270,14 +260,13 @@
   </style>
 </head>
 <body>
-  <!-- Контейнер для падающих сердечек (только при "да") -->
+
   <div id="heartRain" class="heart-rain hidden"></div>
 
   <div class="card" id="mainCard">
     <h1>💗 Навсегда?</h1>
     <div class="subtitle">✨ самый важный вопрос ✨</div>
 
-    <!-- Основной блок: вопрос + кнопки -->
     <div id="questionBlock">
       <div class="question">
         Останешься ли ты со мной<br>до конца своей жизни?
@@ -288,7 +277,6 @@
       </div>
     </div>
 
-    <!-- Блок ответа "НЕТ" (ты ахуела?) -->
     <div id="shockBlock" class="hidden">
       <div class="shock-message">😱 ТЫ АХУЕЛА? 🤯</div>
       <div style="margin: 1rem 0 0.2rem; font-size: 1.2rem; color: #773e52;">подумай ещё раз...</div>
@@ -297,7 +285,6 @@
       </div>
     </div>
 
-    <!-- Блок ответа "ДА" (котик + люблю + от твоего любимого негритёнка) -->
     <div id="catBlock" class="hidden">
       <div class="cat-container">
         <div class="cat-emoji">🐱🌸</div>
@@ -325,93 +312,61 @@
       const resetFromNo = document.getElementById('resetFromNo');
       const resetFromYes = document.getElementById('resetFromYes');
 
-      // Функция сброса к вопросу
       function resetToQuestion() {
         questionBlock.classList.remove('hidden');
         shockBlock.classList.add('hidden');
         catBlock.classList.add('hidden');
-        // убираем дождь из сердечек
         heartRain.classList.add('hidden');
         heartRain.innerHTML = '';
-        // убираем классы анимации
         shockBlock.classList.remove('fade-in');
         catBlock.classList.remove('fade-in');
-        // сбрасываем фон
         document.body.style.background = 'linear-gradient(145deg, #ffe9f1 0%, #ffd9e6 100%)';
       }
 
-      // Генерация падающих сердечек
       function startHeartRain() {
         heartRain.classList.remove('hidden');
         heartRain.innerHTML = '';
-        const count = 35;
-        for (let i = 0; i < count; i++) {
-          const heart = document.createElement('span');
-          heart.textContent = ['❤️', '💖', '💗', '🌸', '✨', '💕', '🩷'][Math.floor(Math.random() * 7)];
-          const left = Math.random() * 100;
-          const size = 1.2 + Math.random() * 2.2;
-          const duration = 6 + Math.random() * 10;
-          const delay = Math.random() * 8;
-          heart.style.left = left + '%';
-          heart.style.fontSize = size + 'rem';
-          heart.style.animationDuration = duration + 's';
-          heart.style.animationDelay = delay + 's';
-          heart.style.opacity = 0.4 + Math.random() * 0.5;
-          heartRain.appendChild(heart);
+        const emojis = ['❤️', '💖', '💗', '🌸', '✨', '💕', '🩷'];
+        for (let i = 0; i < 35; i++) {
+          const span = document.createElement('span');
+          span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          span.style.left = Math.random() * 100 + '%';
+          span.style.fontSize = (1.2 + Math.random() * 2.2) + 'rem';
+          span.style.animationDuration = (6 + Math.random() * 10) + 's';
+          span.style.animationDelay = (Math.random() * 8) + 's';
+          span.style.opacity = 0.4 + Math.random() * 0.5;
+          heartRain.appendChild(span);
         }
       }
 
-      // Обработка "ДА"
       function handleYes() {
-        // Скрываем все блоки
         questionBlock.classList.add('hidden');
         shockBlock.classList.add('hidden');
         catBlock.classList.remove('hidden');
-        
-        // Добавляем анимацию появления
         catBlock.classList.remove('fade-in');
-        // Принудительный рефлоу для перезапуска анимации
         void catBlock.offsetWidth;
         catBlock.classList.add('fade-in');
-
-        // Запускаем дождь из сердечек
         startHeartRain();
-
-        // Меняем фон
         document.body.style.background = 'linear-gradient(145deg, #ffe0ec 0%, #fccfdf 100%)';
       }
 
-      // Обработка "НЕТ"
       function handleNo() {
-        // Скрываем все блоки
         questionBlock.classList.add('hidden');
         catBlock.classList.add('hidden');
         shockBlock.classList.remove('hidden');
-        
-        // Добавляем анимацию появления
         shockBlock.classList.remove('fade-in');
         void shockBlock.offsetWidth;
         shockBlock.classList.add('fade-in');
-
-        // Убираем дождь если был
         heartRain.classList.add('hidden');
         heartRain.innerHTML = '';
-        
-        // Меняем фон (можно оставить или сделать другой)
         document.body.style.background = 'linear-gradient(145deg, #fce4ec 0%, #f8d0d8 100%)';
       }
 
-      // --- Привязка кнопок ---
       btnYes.addEventListener('click', handleYes);
       btnNo.addEventListener('click', handleNo);
-
-      // Сброс из блока "НЕТ"
       resetFromNo.addEventListener('click', resetToQuestion);
-
-      // Сброс из блока "ДА"
       resetFromYes.addEventListener('click', resetToQuestion);
 
-      // Инициализация: показываем вопрос
       resetToQuestion();
     })();
   </script>
