@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Навсегда? 💖</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #ffe9f1 0%, #ffd9e6 100%);
+      padding: 1rem;
+      margin: 0;
+      transition: background 0.3s ease;
+    }
+
+    .card {
+      background: rgba(255, 245, 248, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 3rem;
+      box-shadow: 0 30px 60px rgba(200, 80, 120, 0.25),
+                  0 0 0 1px rgba(255, 220, 235, 0.4);
+      padding: 3rem 2.5rem;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: #5a2d3c;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+      text-shadow: 0 4px 12px rgba(255, 150, 180, 0.2);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #8a5a6a;
+      margin-bottom: 2.5rem;
+      opacity: 0.8;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      border-bottom: 1px dashed rgba(180, 100, 130, 0.2);
+      padding-bottom: 0.8rem;
+    }
+
+    .question {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #3f1e2b;
+      margin: 2rem 0 2.5rem 0;
+      line-height: 1.4;
+      background: rgba(255, 255, 255, 0.3);
+      padding: 1.2rem 1rem;
+      border-radius: 60px;
+      backdrop-filter: blur(4px);
+      box-shadow: inset 0 2px 8px rgba(255, 200, 220, 0.3);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .btn {
+      padding: 1rem 2.8rem;
+      border: none;
+      border-radius: 60px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 20px rgba(180, 70, 110, 0.2);
+      letter-spacing: 0.5px;
+      min-width: 140px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-yes {
+      background: #ff8aa1;
+      color: #3f1e2b;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-yes:hover {
+      background: #ff7090;
+      transform: scale(1.05);
+      box-shadow: 0 12px 28px rgba(220, 70, 110, 0.4);
+    }
+
+    .btn-yes:active {
+      transform: scale(0.95);
+    }
+
+    .btn-no {
+      background: #d0b0b8;
+      color: #3f2a30;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-no:hover {
+      background: #c09aa5;
+      transform: scale(1.02);
+      box-shadow: 0 8px 20px rgba(140, 80, 90, 0.3);
+    }
+
+    .btn-no:active {
+      transform: scale(0.95);
+    }
+
+    /* Ответ "ты ахуела?" — стиль */
+    .shock-message {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #b02b4a;
+      background: rgba(255, 225, 235, 0.7);
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      display: inline-block;
+      backdrop-filter: blur(4px);
+      border: 1px solid #ffb0c0;
+      box-shadow: 0 8px 0 #9e3a54;
+      transform: rotate(-2deg);
+      margin: 1rem 0 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    .cat-container {
+      margin: 1.5rem 0 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cat-emoji {
+      font-size: 6rem;
+      line-height: 1.2;
+      animation: bounceCat 1.2s infinite alternate ease-in-out;
+      filter: drop-shadow(0 12px 18px rgba(255, 100, 130, 0.3));
+      display: inline-block;
+    }
+
+    .love-text {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #d6406a, #b82a55);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 4px 20px rgba(200, 60, 100, 0.2);
+      letter-spacing: 1px;
+      padding: 0.4rem 1.2rem;
+      border-radius: 60px;
+      background-color: rgba(255, 240, 245, 0.4);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 180, 200, 0.3);
+    }
+
+    .sub-love {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #7a4052;
+      background: rgba(255, 220, 235, 0.3);
+      padding: 0.3rem 1.8rem;
+      border-radius: 40px;
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 180, 200, 0.15);
+      margin-top: 0.3rem;
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes bounceCat {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(-18px) scale(1.06); }
+    }
+
+    .heart-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      overflow: hidden;
+    }
+
+    .heart-rain span {
+      position: absolute;
+      display: block;
+      font-size: 1.8rem;
+      animation: fall linear infinite;
+      opacity: 0.7;
+      color: #ff4d7a;
+      text-shadow: 0 0 12px #ffb0c8;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-20vh) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0.2; }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .reset-area {
+      margin-top: 2rem;
+    }
+
+    .btn-reset {
+      background: transparent;
+      border: 1px solid rgba(130, 70, 90, 0.2);
+      color: #6f4a58;
+      padding: 0.5rem 1.8rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      backdrop-filter: blur(4px);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-reset:hover {
+      background: rgba(255, 200, 215, 0.4);
+      border-color: #b06a7a;
+      color: #3f1e2b;
+    }
+
+    /* адаптив */
+    @media (max-width: 480px) {
+      .card { padding: 2rem 1.5rem; }
+      h1 { font-size: 2rem; }
+      .question { font-size: 1.4rem; }
+      .btn { padding: 0.8rem 1.5rem; font-size: 1.2rem; min-width: 110px; }
+      .cat-emoji { font-size: 4.5rem; }
+      .love-text { font-size: 1.8rem; }
+      .sub-love { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Контейнер для падающих сердечек (только при "да") -->
+  <div id="heartRain" class="heart-rain hidden"></div>
+
+  <div class="card" id="mainCard">
+    <h1>💗 Навсегда?</h1>
+    <div class="subtitle">✨ самый важный вопрос ✨</div>
+
+    <!-- Основной блок: вопрос + кнопки -->
+    <div id="questionBlock">
+      <div class="question">
+        Останешься ли ты со мной<br>до конца своей жизни?
+      </div>
+      <div class="buttons">
+        <button class="btn btn-yes" id="btnYes">💖 Да</button>
+        <button class="btn btn-no" id="btnNo">❌ Нет</button>
+      </div>
+    </div>
+
+    <!-- Блок ответа "НЕТ" (ты ахуела?) -->
+    <div id="shockBlock" class="hidden">
+      <div class="shock-message">😱 ТЫ АХУЕЛА? 🤯</div>
+      <div style="margin: 1rem 0 0.2rem; font-size: 1.2rem; color: #773e52;">подумай ещё раз...</div>
+      <div class="reset-area">
+        <button class="btn-reset" id="resetFromNo">↺ Вернуться и передумать</button>
+      </div>
+    </div>
+
+    <!-- Блок ответа "ДА" (котик + люблю + от твоего любимого негритёнка) -->
+    <div id="catBlock" class="hidden">
+      <div class="cat-container">
+        <div class="cat-emoji">🐱🌸</div>
+        <div class="love-text">💕 Я очень тебя люблю! 💕</div>
+        <div class="sub-love">💌 от твоего любимого негритёнка</div>
+        <div style="margin-top: 0.8rem; font-size: 1.2rem; color: #6a3f4e; background: rgba(255,220,235,0.4); padding: 0.3rem 1.8rem; border-radius: 40px;">
+          ты — моя бесконечность ✨
+        </div>
+      </div>
+      <div class="reset-area" style="margin-top: 1.8rem;">
+        <button class="btn-reset" id="resetFromYes">↺ Начать заново</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const questionBlock = document.getElementById('questionBlock');
+      const shockBlock = document.getElementById('shockBlock');
+      const catBlock = document.getElementById('catBlock');
+      const heartRain = document.getElementById('heartRain');
+
+      const btnYes = document.getElementById('btnYes');
+      const btnNo = document.getElementById('btnNo');
+      const resetFromNo = document.getElementById('resetFromNo');
+      const resetFromYes = document.getElementById('resetFromYes');
+
+      // Функция сброса к вопросу
+      function resetToQuestion() {
+        questionBlock.classList.remove('hidden');
+        shockBlock.classList.add('hidden');
+        catBlock.classList.add('hidden');
+        // убираем дождь из сердечек
+        heartRain.classList.add('hidden');
+        heartRain.innerHTML = '';
+        // убираем классы анимации
+        shockBlock.classList.remove('fade-in');
+        catBlock.classList.remove('fade-in');
+        // сбрасываем фон
+        document.body.style.background = 'linear-gradient(145deg, #ffe9f1 0%, #ffd9e6 100%)';
+      }
+
+      // Генерация падающих сердечек
+      function startHeartRain() {
+        heartRain.classList.remove('hidden');
+        heartRain.innerHTML = '';
+        const count = 35;
+        for (let i = 0; i < count; i++) {
+          const heart = document.createElement('span');
+          heart.textContent = ['❤️', '💖', '💗', '🌸', '✨', '💕', '🩷'][Math.floor(Math.random() * 7)];
+          const left = Math.random() * 100;
+          const size = 1.2 + Math.random() * 2.2;
+          const duration = 6 + Math.random() * 10;
+          const delay = Math.random() * 8;
+          heart.style.left = left + '%';
+          heart.style.fontSize = size + 'rem';
+          heart.style.animationDuration = duration + 's';
+          heart.style.animationDelay = delay + 's';
+          heart.style.opacity = 0.4 + Math.random() * 0.5;
+          heartRain.appendChild(heart);
+        }
+      }
+
+      // Обработка "ДА"
+      function handleYes() {
+        // Скрываем все блоки
+        questionBlock.classList.add('hidden');
+        shockBlock.classList.add('hidden');
+        catBlock.classList.remove('hidden');
+        
+        // Добавляем анимацию появления
+        catBlock.classList.remove('fade-in');
+        // Принудительный рефлоу для перезапуска анимации
+        void catBlock.offsetWidth;
+        catBlock.classList.add('fade-in');
+
+        // Запускаем дождь из сердечек
+        startHeartRain();
+
+        // Меняем фон
+        document.body.style.background = 'linear-gradient(145deg, #ffe0ec 0%, #fccfdf 100%)';
+      }
+
+      // Обработка "НЕТ"
+      function handleNo() {
+        // Скрываем все блоки
+        questionBlock.classList.add('hidden');
+        catBlock.classList.add('hidden');
+        shockBlock.classList.remove('hidden');
+        
+        // Добавляем анимацию появления
+        shockBlock.classList.remove('fade-in');
+        void shockBlock.offsetWidth;
+        shockBlock.classList.add('fade-in');
+
+        // Убираем дождь если был
+        heartRain.classList.add('hidden');
+        heartRain.innerHTML = '';
+        
+        // Меняем фон (можно оставить или сделать другой)
+        document.body.style.background = 'linear-gradient(145deg, #fce4ec 0%, #f8d0d8 100%)';
+      }
+
+      // --- Привязка кнопок ---
+      btnYes.addEventListener('click', handleYes);
+      btnNo.addEventListener('click', handleNo);
+
+      // Сброс из блока "НЕТ"
+      resetFromNo.addEventListener('click', resetToQuestion);
+
+      // Сброс из блока "ДА"
+      resetFromYes.addEventListener('click', resetToQuestion);
+
+      // Инициализация: показываем вопрос
+      resetToQuestion();
+    })();
+  </script>
+</body>
+</html>
